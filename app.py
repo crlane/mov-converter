@@ -10,10 +10,9 @@ from flask import (
     url_for,
 )
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='/static')
 UPLOAD_DIR = '/tmp/video_conversion'
 
-app.config['STATIC_FOLDER'] = 'static'
 app.config['UPLOAD_DIR'] = UPLOAD_DIR
 
 
