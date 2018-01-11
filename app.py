@@ -2,11 +2,18 @@ import os
 
 from ffmpy import FFmpeg
 
-from flask import Flask, request, redirect, send_from_directory
+from flask import (
+    Flask,
+    request,
+    redirect,
+    send_from_directory,
+    url_for,
+)
 
 app = Flask(__name__)
 UPLOAD_DIR = '/tmp/video_conversion'
 
+app.config['STATIC_FOLDER'] = UPLOAD_DIR
 app.config['UPLOAD_DIR'] = UPLOAD_DIR
 
 
@@ -24,6 +31,11 @@ def _convert_to_mov(original, new):
     ff.run()
     app.logger.info('Conversion successful: %s', new)
     return new
+
+
+@app.route('/favicon.ico', methods=['GET'])
+def favicon():
+    return url_for('static', filename='favicon.ico')
 
 
 @app.route('/convert', methods=['GET', 'POST'])
@@ -57,4 +69,4 @@ def convert_video():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', port=os.getenv('PORT', 5000))
