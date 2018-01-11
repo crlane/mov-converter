@@ -13,7 +13,7 @@ from flask import (
 app = Flask(__name__)
 UPLOAD_DIR = '/tmp/video_conversion'
 
-app.config['STATIC_FOLDER'] = UPLOAD_DIR
+app.config['STATIC_FOLDER'] = 'static'
 app.config['UPLOAD_DIR'] = UPLOAD_DIR
 
 
